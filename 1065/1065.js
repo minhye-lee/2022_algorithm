@@ -17,5 +17,4 @@ for(let i = 1; i <= Number(input); i++) {
         cnt++
     }
 }
-
 console.log(cnt)
