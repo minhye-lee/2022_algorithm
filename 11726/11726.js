@@ -7,4 +7,5 @@ arr[2] = 2
 for(let i = 3; i <= count; i++) {
     arr[i] = (arr[i-1] + arr[i-2]) % 10007
 }
-console.log(arr[count])
+//나중에 나누면 값이 커져서 정상적인 계산 불가능
+console.log(arr[count] )
