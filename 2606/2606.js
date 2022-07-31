@@ -1,23 +1,22 @@
-let input = require('fs').readFileSync('/dev/stdin', 'utf-8').trim().split('\n'); 
+let input = require('fs').readFileSync('/dev/stdin', 'utf-8').trim().split('\n')
 const [num, cnt, ...rest] = input
-const arr = Array.from({length: Number(num)+1}, () => [])
-const result = Array.from({length: Number(num)+1}, () => 0)
+const graph = Array.from({ length: Number(num) + 1 }, () => [])
+const visited = Array.from({ length: Number(num) + 1 }, () => false)
 
-for(let i = 0; i < rest.length; i++) {
-    const [a ,b] = (rest[i].split(' ').map((i) => Number(i)).sort((a,b) => a -b))
-    arr[a].push(b)
-    arr[b].push(a)
+for (let i = 0; i < cnt; i++) {
+  const [from, to] = rest[i].split(' ').map((i) => Number(i))
+  graph[from].push(to)
+  graph[to].push(from)
 }
+dfs(graph, 1)
 
-function dfs(index) {
-    arr[index].forEach((item) => {
-        console.log(item)
-        if(result[item]) {
-            return
-        }
-        result[item] = 1
-        dfs(item)
+function dfs(graph, startNode) {
+  if (visited[startNode]) return
+  else {
+    visited[startNode] = true
+    graph[startNode].forEach((v) => {
+      if (!visited[v]) dfs(graph, v)
     })
+  }
 }
-dfs(1)
-console.log(result.filter((i) => i === 1).length -1)
+console.log(visited.filter((el) => el).length - 1)
